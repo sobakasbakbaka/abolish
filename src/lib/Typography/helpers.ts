@@ -1,9 +1,10 @@
 import { ElementType } from "react";
-import { Levels, TYPOGRAPHY_VARIANTS } from "./Typography";
+import { TYPOGRAPHY_VARIANTS } from "./Typography";
+import { LEVELS } from "./constants";
 
 export const defineComponent = (
   variant?: TYPOGRAPHY_VARIANTS,
-  level?: Levels
+  level?: typeof LEVELS[number]
 ): ElementType => {
   if (variant === TYPOGRAPHY_VARIANTS.BODY) {
     return "p";
