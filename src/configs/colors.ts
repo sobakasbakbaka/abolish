@@ -18,7 +18,7 @@ export const COLORS = {
     strong: "#9D9D9D",
     strongAdditional: "#AFAFAF",
     weak: "#D8D8D8",
-    weakAdditional: "#D8D8D8",
+    weakAdditional: "#F0F0F0",
     weakBG: "#E2E2E2",
   },
   error: "#E34747",
