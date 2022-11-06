@@ -3,9 +3,11 @@ import {
   FC,
   MouseEventHandler,
   PropsWithChildren,
+  MouseEvent,
 } from "react";
 import styled from "styled-components";
 import { COLORS } from "../../configs/colors";
+import Typography, { TYPOGRAPHY_VARIANTS } from "../Typography/Typography";
 
 export enum BUTTON_VARIANTS {
   PRIMARY = "primary",
@@ -15,7 +17,7 @@ export enum BUTTON_VARIANTS {
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: BUTTON_VARIANTS;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  onClick?(e: MouseEvent<HTMLButtonElement>): void;
   isBlock?: boolean;
 };
 
@@ -26,6 +28,7 @@ const backgroundsVariant: Record<string, string> = {
 };
 
 const colorsVariant: Record<string, string> = {
+  [BUTTON_VARIANTS.PRIMARY]: COLORS.BW.white,
   [BUTTON_VARIANTS.OUTLINE]: COLORS.BW.black,
   [BUTTON_VARIANTS.TEXT]: COLORS.primary.strong,
 };
@@ -45,7 +48,7 @@ const Button: FC<PropsWithChildren<Props>> = ({
 
   return (
     <button disabled={disabled} onClick={onClick} {...restProps}>
-      {children}
+      <Typography variant={TYPOGRAPHY_VARIANTS.BUTTON}>{children}</Typography>
     </button>
   );
 };
@@ -69,6 +72,8 @@ const StyledButton = styled(Button)`
   padding: 17.5px 40px;
   cursor: ${(props) => !props.disabled && "pointer"};
   width: ${(props) => props.isBlock && "100%"};
+  white-space: nowrap;
+  height: fit-content;
 `;
 
 export default StyledButton;
