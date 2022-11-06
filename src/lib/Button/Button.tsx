@@ -7,16 +7,27 @@ import {
 import styled from "styled-components";
 import { COLORS } from "../../configs/colors";
 
-export enum BUTTONS_VARIANT {
+export enum BUTTON_VARIANTS {
   PRIMARY = "primary",
   OUTLINE = "outline",
   TEXT = "text",
 }
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: BUTTONS_VARIANT;
+  variant?: BUTTON_VARIANTS;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   isBlock?: boolean;
+};
+
+const backgroundsVariant: Record<string, string> = {
+  [BUTTON_VARIANTS.TEXT]: "none",
+  [BUTTON_VARIANTS.PRIMARY]: COLORS.primary.strong,
+  [BUTTON_VARIANTS.OUTLINE]: COLORS.primary.weak,
+};
+
+const colorsVariant: Record<string, string> = {
+  [BUTTON_VARIANTS.OUTLINE]: COLORS.BW.black,
+  [BUTTON_VARIANTS.TEXT]: COLORS.primary.strong,
 };
 
 const Button: FC<PropsWithChildren<Props>> = ({
@@ -40,47 +51,24 @@ const Button: FC<PropsWithChildren<Props>> = ({
 };
 
 const StyledButton = styled(Button)`
-  background: ${(props) => {
-    switch (props.variant) {
-      case BUTTONS_VARIANT.PRIMARY: {
-        return COLORS.primary.strong;
-      }
-      case BUTTONS_VARIANT.OUTLINE: {
-        return COLORS.primary.weak;
-      }
-      case BUTTONS_VARIANT.TEXT: {
-        return "none";
-      }
-      default:
-        return COLORS.primary.strong;
-    }
-  }};
-  border: ${(props) =>
-    props.variant === BUTTONS_VARIANT.OUTLINE
+  background: ${({ variant }) =>
+    variant ? backgroundsVariant[variant] : COLORS.primary.strong};
+  border: ${({ variant }) =>
+    variant === BUTTON_VARIANTS.OUTLINE
       ? "2px solid" + " " + COLORS.primary.strongBg
       : "none"};
+  color: ${({ variant }) =>
+    variant ? colorsVariant[variant] : COLORS.BW.white};
   text-transform: uppercase;
   border-radius: 12px;
-  color: ${(props) => {
-    switch (props.variant) {
-      case BUTTONS_VARIANT.OUTLINE: {
-        return COLORS.BW.black;
-      }
-      case BUTTONS_VARIANT.TEXT: {
-        return COLORS.primary.strong;
-      }
-      default:
-        return COLORS.BW.white;
-    }
-  }};
-  font-weight: ${(props) =>
-    props.variant === BUTTONS_VARIANT.TEXT ? "500" : "600"};
-  font-size: ${(props) =>
-    props.variant === BUTTONS_VARIANT.TEXT ? "32px" : "16px"};
+  font-weight: ${({ variant }) =>
+    variant === BUTTON_VARIANTS.TEXT ? "500" : "600"};
+  font-size: ${({ variant }) =>
+    variant === BUTTON_VARIANTS.TEXT ? "32px" : "16px"};
   line-height: 130%;
   padding: 17.5px 40px;
   cursor: ${(props) => !props.disabled && "pointer"};
-  width: ${(props) => props.isBlock && '100%'};
+  width: ${(props) => props.isBlock && "100%"};
 `;
 
 export default StyledButton;

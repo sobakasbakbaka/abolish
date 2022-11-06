@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStoryObj } from "@storybook/react";
-import Button, { BUTTONS_VARIANT } from "./Button";
+import Button, { BUTTON_VARIANTS } from "./Button";
 
 const meta: ComponentMeta<typeof Button> = {
   title: "Design System/Button",
@@ -15,7 +15,7 @@ export const Default: ComponentStoryObj<typeof Button> = {
   },
   argTypes: {
     variant: {
-      options: BUTTONS_VARIANT,
+      options: BUTTON_VARIANTS,
       control: {
         type: "radio",
       },
